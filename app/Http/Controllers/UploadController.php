@@ -31,9 +31,9 @@ class UploadController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'firstname'=>['required', 'string'],
-            'lastname'=>['required', 'string'],
+        $validate = $request->validate([
+            'firstname'=>['required'],
+            'lastname'=>['required'],
             // 'portrait'=>'required'
         ],[
             'firstname.required'=>'Full out name',
@@ -44,8 +44,10 @@ class UploadController extends Controller
             'firstname' => $request->firstname,
             'lastname' => $request->lastname
         ]);
-        if(!$upload) {
+        if(!$validate) {
             return;
+        }else {
+            $upload;
         }
         return redirect('/');
     }

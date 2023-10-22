@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UploadController;
+use App\Http\Controllers\PageController;
+use App\Http\Controllers\ProjectController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,24 +17,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [PageController::class, 'index']) ;
+Route::get('/project', [ProjectController::class, 'index'])->name('project.show');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-
-Route::get('/showupload', [UploadController::class, 'index']);
-Route::get('/upload', [UploadController::class, 'create']);
-Route::post('/upload', [UploadController::class, 'store'])->name('fileupload');
-
-
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/projectupload', [ProjectController::class, 'create'])->name('project.upload');
+    Route::post('/projectupload', [ProjectController::class, 'store']);
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
