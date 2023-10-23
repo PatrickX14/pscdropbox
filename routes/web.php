@@ -17,8 +17,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [PageController::class, 'index']) ;
-Route::get('/project', [ProjectController::class, 'index'])->name('project.show');
+Route::controller(PageController::class)->group(function () {
+    Route::get('/', 'index');
+});
+
+Route::controller(ProjectController::class)->group(function () {
+    Route::get('/project', 'index')->name('project.show');
+});
 
 Route::get('/dashboard', function () {
     return view('dashboard');

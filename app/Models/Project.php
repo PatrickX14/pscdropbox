@@ -9,7 +9,7 @@ class Project extends Model
 {
     use HasFactory;
     protected $table = 'projects';
-    protected $primarykey = ' id';
+    protected $primarykey = 'id';
     protected $fillable = [
         'projectname',
         'academicyear',
