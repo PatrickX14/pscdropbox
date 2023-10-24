@@ -1,6 +1,6 @@
 @extends('layouts.main')
 @section('content')
-    <div class="container">
+    <div class="container mb-5">
         <div class="card">
             <h4 class="card-header bg-dark text-light p-3">Project Upload</h4>
             <div class="card-body p-4">

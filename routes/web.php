@@ -23,6 +23,7 @@ Route::controller(PageController::class)->group(function () {
 
 Route::controller(ProjectController::class)->group(function () {
     Route::get('/project', 'index')->name('project.show');
+    Route::get('/projectshow/{id}' , 'show');
 });
 
 Route::get('/dashboard', function () {
@@ -35,6 +36,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/projectupload', [ProjectController::class, 'create'])->name('project.upload');
     Route::post('/projectupload', [ProjectController::class, 'store']);
+    Route::put('/projectupdate/{id}', [ProjectController::class, 'update']);
+    Route::delete('/projectdelete/{id}', [ProjectController::class, 'destroy']);
 });
 
 require __DIR__ . '/auth.php';

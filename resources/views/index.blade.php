@@ -39,12 +39,12 @@
                         <td>{{ $data->projectname }}</td>
                         <td>
                             <ol>
-                                <li>name</li>
-                                <li>name</li>
-                                <li>name</li>
+                                @foreach ($data->projectmembers as $projectmembers)
+                                    <li>{{ $projectmembers }}</li>
+                                @endforeach
                             </ol>
                         </td>
-                        <td>ปวส.2/4</td>
+                        <td>{{ $data->class }}</td>
                         <td>
                             <button class="btn btn-primary">View</button>
                             @if (Route::has('login'))

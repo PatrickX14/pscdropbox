@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Project;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class ProjectController extends Controller
@@ -13,7 +14,7 @@ class ProjectController extends Controller
     public function index()
     {
         $projectData = Project::all();
-        return view('projectshow')->with('projectdata', $projectData);
+        return view('project')->with('projectdata', $projectData);
     }
 
     /**
@@ -21,7 +22,7 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        return view('projectupload');
+        return view('projectcreate');
     }
 
     /**
@@ -81,17 +82,24 @@ class ProjectController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Project $project)
+    public function show(string $id)
     {
-        //
+        $project = Project::find($id);
+        return view('projectshow', compact('project'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Project $project)
+    public function edit(Request $request, string $id)
     {
-        //
+          $request->validate([
+            'title' => 'required|max:255',
+            'body' => 'required',
+          ]);
+          $project = Project::find($id);
+          $project->update($request->all());
+          return redirect('/project');
     }
 
     /**
@@ -115,15 +123,15 @@ class ProjectController extends Controller
         $request->file('abstract')->storeAs('abstract', $request->file('abstract')->getClientOriginalName(), 'public');
         $request->file('code')->storeAs('code', $request->file('code')->getClientOriginalName(), 'public');
         $request->file('approval')->storeAs('approval', $request->file('approval')->getClientOriginalName(), 'public');
-        return redirect(route('project.show'));
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Project $project, string $id)
+    public function destroy(Project $project, string $id) : RedirectResponse
     {
         $project = Project::find($id);
-        $project->delete;
+        $project->delete();
+        return redirect('/project');
     }
 }
