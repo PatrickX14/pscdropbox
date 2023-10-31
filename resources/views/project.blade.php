@@ -26,7 +26,7 @@
                         <td>{{ $data->gradelevel }}. {{ $data->class }}</td>
                         <td>
                             <a class="btn btn-primary" href="{{ url('projectshow/' . $data->id) }}">View</a>
-                            @if (Route::has('login'))
+                            {{-- @if (Route::has('login'))
                                 @auth
                                     <form action="{{ url('projectupdate/' . $data->id) }}" class="btn p-0">
                                         <button type="submit" class="btn btn-success">Edit</button>
@@ -37,10 +37,11 @@
                                         <button type="submit" class="btn btn-danger">Delete</button>
                                     </form>
                                 @endauth
-                            @endif
+                            @endif --}}
                         </td>
                     </tr>
                 @endforeach
             </tbody>
         </table>
-    @endsection
+    </div>
+@endsection

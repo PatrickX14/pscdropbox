@@ -48,25 +48,21 @@
                             @enderror
                         </div>
                         <fieldset>
-                            <div class="col">
+                            <div class="col" id="memberCol">
                                 <label for="">ผู้รับผิดชอบโครงงาน</label>
-                                <input class="form-control border border-dark" type="text" name="projectmembers[]">
-                                @error('projectmembers')
-                                    <span class="text-danger fs-6">{{ $message }}</span>
-                                @enderror
-                            </div>
-                            <div class="col">
-                                <label for="">ผู้รับผิดชอบโครงงาน</label>
-                                <input class="form-control border border-dark" type="text" name="projectmembers[]">
+                                <button type="button" class="btn btn-success" id="memberAdd">เพิ่มผู้รับผิดชอบโครงงาน</button>
+                                <input class="form-control border border-dark mt-3" type="text" name="projectmembers[]">
+                                <input class="form-control border border-dark mt-3" type="text" name="projectmembers[]">
                                 @error('projectmembers')
                                     <span class="text-danger fs-6">{{ $message }}</span>
                                 @enderror
                             </div>
                         </fieldset>
                         <fieldset>
-                            <div class="col">
+                            <div class="col" id="advisorCol">
                                 <label for="">อาจารย์ที่ปรึกษาโครงงาน</label>
-                                <input class="form-control border border-dark" type="text" name="projectadvisors[]">
+                                <button type="button" class="btn btn-success">เพิ่มอาจารย์ที่ปรึกษาโครงงาน</button>
+                                <input class="form-control border border-dark mt-3" type="text" name="projectadvisors[]">
                                 @error('projectadvisors')
                                     <span class="text-danger fs-6">{{ $message }}</span>
                                 @enderror
@@ -121,4 +117,5 @@
             </div>
         </div>
     </div>
+    <script src="{{ asset('js/projectcreate.js') }}"></script>
 @endsection

@@ -9,7 +9,53 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-                    {{ __("You're logged in!") }}
+                    {{-- {{ __("You're logged in!") }} --}}
+                    <div class="container">
+                        <table class="table table-hover">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th scope="col">ID</th>
+                                    <th scope="col">Project Name</th>
+                                    <th scope="col">Project Members</th>
+                                    <th scope="col">Class</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody class="table-group-divider">
+                                @foreach ($projects as $data)
+                                    <tr>
+                                        <th scope="row">{{ $data->id }}</th>
+                                        <td>{{ $data->projectname }}</td>
+                                        <td>
+                                            <ol>
+                                                @foreach ($data->projectmembers as $projectmembers)
+                                                    <li>{{ $projectmembers }}</li>
+                                                @endforeach
+                                            </ol>
+                                        </td>
+                                        <td>{{ $data->gradelevel }}. {{ $data->class }}</td>
+                                        <td>
+                                            <a class="btn btn-primary"
+                                                href="{{ url('projectshow/' . $data->id) }}" style="background-color: #0d6efd;">View</a>
+                                            @if (Route::has('login'))
+                                                @auth
+                                                    <form action="{{ url('projectupdate/' . $data->id) }}" class="btn p-0">
+                                                        <button type="submit" class="btn btn-success" style="background-color: #198754;">Edit</button>
+                                                    </form>
+                                                    <form method="POST" action="{{ url('projectdelete/' . $data->id) }}"
+                                                        class="btn p-0">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-danger" style="background-color: #dc3545;">Delete</button>
+                                                    </form>
+                                                @endauth
+                                            @endif
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

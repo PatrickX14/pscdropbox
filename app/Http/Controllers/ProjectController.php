@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Project;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProjectController extends Controller
 {
@@ -76,7 +77,7 @@ class ProjectController extends Controller
             $request->file('code')->storeAs('code', $request->file('code')->getClientOriginalName(), 'public');
             $request->file('approval')->storeAs('approval', $request->file('approval')->getClientOriginalName(), 'public');
         }
-        return redirect(route('project.show'));
+        return redirect()->route('dashboard');
     }
 
     /**
@@ -93,13 +94,13 @@ class ProjectController extends Controller
      */
     public function edit(Request $request, string $id)
     {
-          $request->validate([
+        $request->validate([
             'title' => 'required|max:255',
             'body' => 'required',
-          ]);
-          $project = Project::find($id);
-          $project->update($request->all());
-          return redirect('/project');
+        ]);
+        $project = Project::find($id);
+        $project->update($request->all());
+        return redirect('/project');
     }
 
     /**
@@ -120,15 +121,24 @@ class ProjectController extends Controller
         $project->approval = $request->approval->getClientOriginalName();
         $project->video = $request->video;
         $project->save();
-        $request->file('abstract')->storeAs('abstract', $request->file('abstract')->getClientOriginalName(), 'public');
-        $request->file('code')->storeAs('code', $request->file('code')->getClientOriginalName(), 'public');
-        $request->file('approval')->storeAs('approval', $request->file('approval')->getClientOriginalName(), 'public');
+        if ($request->hasFile('abstract')) {
+            $request->file('abstract')->storeAs('abstract', $request->file('abstract')->getClientOriginalName(), 'public');
+            Storage::disk('public')->delete('abstract/' . $request->abstract);
+        }
+        if ($request->hasFile('code')) {
+            $request->file('code')->storeAs('code', $request->file('code')->getClientOriginalName(), 'public');
+            Storage::disk('public')->delete('abstract/' . $request->abstract);
+        }
+        if ($request->hasFile('approval')) {
+            $request->file('approval')->storeAs('approval', $request->file('approval')->getClientOriginalName(), 'public');
+            Storage::disk('public')->delete('abstract/' . $request->abstract);
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Project $project, string $id) : RedirectResponse
+    public function destroy(Project $project, string $id)
     {
         $project = Project::find($id);
         $project->destroy($id);
