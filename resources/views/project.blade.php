@@ -31,7 +31,7 @@
                                     <form action="{{ url('projectupdate/' . $data->id) }}" class="btn p-0">
                                         <button type="submit" class="btn btn-success">Edit</button>
                                     </form>
-                                    <form action="{{ url('projectdelete/' . $data->id) }}" class="btn p-0">
+                                    <form method="POST" action="{{ url('projectdelete/' . $data->id) }}" class="btn p-0">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger">Delete</button>
@@ -44,4 +44,3 @@
             </tbody>
         </table>
     @endsection
-
