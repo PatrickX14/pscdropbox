@@ -14,8 +14,8 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        $projectData = Project::all();
-        return view('project')->with('projectdata', $projectData);
+        $projectdata = Project::all();
+        return view('project', compact('projectdata'));
     }
 
     /**

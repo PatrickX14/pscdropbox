@@ -11,6 +11,7 @@
                 <div class="p-6 text-gray-900">
                     {{-- {{ __("You're logged in!") }} --}}
                     <div class="container">
+                        <a href="{{ route('project.upload') }}" class="btn btn-primary mb-3">เพิ่มโครงงาน</a>
                         <table class="table table-hover">
                             <thead class="table-dark">
                                 <tr>
