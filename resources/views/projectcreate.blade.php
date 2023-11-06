@@ -61,8 +61,11 @@
                         <fieldset>
                             <div class="col" id="advisorCol">
                                 <label for="">อาจารย์ที่ปรึกษาโครงงาน</label>
-                                <button type="button" class="btn btn-success">เพิ่มอาจารย์ที่ปรึกษาโครงงาน</button>
-                                <input class="form-control border border-dark mt-3" type="text" name="projectadvisors[]">
+                                <button type="button" class="btn btn-success" id="advisorAdd">เพิ่มอาจารย์ที่ปรึกษาโครงงาน</button>
+                                <div class="d-flex align-items-center">
+                                    <input class="form-control border border-dark mt-3 border-none" type="text" name="projectadvisors[]" style="height: 100">
+                                    <button type="button" class="btn btn-danger">Remove</button>
+                                </div>
                                 @error('projectadvisors')
                                     <span class="text-danger fs-6">{{ $message }}</span>
                                 @enderror
