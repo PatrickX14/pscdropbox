@@ -26,18 +26,19 @@
                         <td>{{ $data->gradelevel }}. {{ $data->class }}</td>
                         <td>
                             <a class="btn btn-primary" href="{{ url('projectshow/' . $data->id) }}">View</a>
-                            {{-- @if (Route::has('login'))
+                            @if (Route::has('login'))
                                 @auth
-                                    <form action="{{ url('projectupdate/' . $data->id) }}" class="btn p-0">
+                                    {{-- <form method="POST" action="{{ url('projectedit/' . $data->id) }}" class="btn p-0">
                                         <button type="submit" class="btn btn-success">Edit</button>
-                                    </form>
+                                    </form> --}}
+                                    <a href="{{ url('projectedit/' . $data->id) }}" class="btn btn-success">Edit</a>
                                     <form method="POST" action="{{ url('projectdelete/' . $data->id) }}" class="btn p-0">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger">Delete</button>
                                     </form>
                                 @endauth
-                            @endif --}}
+                            @endif
                         </td>
                     </tr>
                 @endforeach

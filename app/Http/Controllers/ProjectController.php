@@ -7,6 +7,8 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
+use function Laravel\Prompts\error;
+
 class ProjectController extends Controller
 {
     /**
@@ -31,7 +33,7 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->validate([
+        $validator = $request->validate([
             'projectname' => 'required',
             'academicyear' => 'required',
             'gradelevel' => 'required',
@@ -57,8 +59,10 @@ class ProjectController extends Controller
             'video.required' => 'โปรดเพิ่มวิดีโอ'
         ]);
 
-        if (!$validated) {
-            return;
+        if (!$validator) {
+            return back()->withErrors([
+                "projectname" => "please input project name"
+            ])->withInput(["projectname", "academicyear"]);
         } else {
             $project = new Project;
             $project->projectname = $request->projectname;
@@ -89,18 +93,31 @@ class ProjectController extends Controller
         return view('projectshow', compact('project'));
     }
 
+    public function search(Request $request)
+    {
+        $search = $request->search;
+        // $food = Food::where(function ($query) use ($search) {
+        //     $query->where('foodname', 'like', "%$search%")
+        //         ->orWhereHas('diseases->name', 'like', "%$search%");
+        // })->get();
+        $food = Project::where(function ($query) use ($search) {
+            $query->where('foodname', 'like', "%$search%")
+                ->orWhere('foodkcal', 'like', "%$search%");
+        })
+            ->orWhereHas('diseases', function ($query) use ($search) {
+                $query->where('name', 'like', "%$search%");
+            })->get();
+        return view('search', compact('food'));
+    }
+
+
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Request $request, string $id)
+    public function edit(string $id)
     {
-        $request->validate([
-            'title' => 'required|max:255',
-            'body' => 'required',
-        ]);
         $project = Project::find($id);
-        $project->update($request->all());
-        return redirect('/project');
+        return view('projectedit', compact("project"));
     }
 
     /**
@@ -116,23 +133,24 @@ class ProjectController extends Controller
         $project->description = $request->description;
         $project->projectmembers = $request->projectmembers;
         $project->projectadvisors = $request->projectadvisors;
-        $project->abstract = $request->abstract->getClientOriginalName();
-        $project->code = $request->code->getClientOriginalName();
-        $project->approval = $request->approval->getClientOriginalName();
         $project->video = $request->video;
         $project->save();
         if ($request->hasFile('abstract')) {
+            $project->abstract = $request->abstract->getClientOriginalName();
             $request->file('abstract')->storeAs('abstract', $request->file('abstract')->getClientOriginalName(), 'public');
             Storage::disk('public')->delete('abstract/' . $request->abstract);
         }
         if ($request->hasFile('code')) {
+            $project->code = $request->code->getClientOriginalName();
             $request->file('code')->storeAs('code', $request->file('code')->getClientOriginalName(), 'public');
             Storage::disk('public')->delete('abstract/' . $request->abstract);
         }
         if ($request->hasFile('approval')) {
+            $project->approval = $request->approval->getClientOriginalName();
             $request->file('approval')->storeAs('approval', $request->file('approval')->getClientOriginalName(), 'public');
             Storage::disk('public')->delete('abstract/' . $request->abstract);
         }
+        return redirect()->route("dashboard");
     }
 
     /**

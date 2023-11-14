@@ -42,6 +42,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/projectupload', [ProjectController::class, 'create'])->name('project.upload');
     Route::post('/projectupload', [ProjectController::class, 'store']);
+    Route::get('/projectedit/{id}', [ProjectController::class, 'edit']);
     Route::put('/projectupdate/{id}', [ProjectController::class, 'update']);
     Route::delete('/projectdelete/{id}', [ProjectController::class, 'destroy']);
 });

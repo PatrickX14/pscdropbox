@@ -36,18 +36,20 @@
                                         </td>
                                         <td>{{ $data->gradelevel }}. {{ $data->class }}</td>
                                         <td>
-                                            <a class="btn btn-primary"
-                                                href="{{ url('projectshow/' . $data->id) }}" style="background-color: #0d6efd;">View</a>
+                                            <a class="btn btn-primary" href="{{ url('projectshow/' . $data->id) }}"
+                                                style="background-color: #0d6efd;">View</a>
                                             @if (Route::has('login'))
                                                 @auth
-                                                    <form action="{{ url('projectupdate/' . $data->id) }}" class="btn p-0">
-                                                        <button type="submit" class="btn btn-success" style="background-color: #198754;">Edit</button>
-                                                    </form>
+                                                    {{-- <form method="POST" action="{{ url('projectedit/' . $data->id) }}" class="btn p-0">
+                                                        <button type="submit" class="btn btn-success">Edit</button>
+                                                    </form> --}}
+                                                    <a href="{{ url('projectedit/' . $data->id) }}"
+                                                        class="btn btn-success">Edit</a>
                                                     <form method="POST" action="{{ url('projectdelete/' . $data->id) }}"
                                                         class="btn p-0">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button type="submit" class="btn btn-danger" style="background-color: #dc3545;">Delete</button>
+                                                        <button type="submit" class="btn btn-danger">Delete</button>
                                                     </form>
                                                 @endauth
                                             @endif

@@ -31,7 +31,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('project.show') }}">Projects</a>
                     </li>
-                    <li class="nav-item">
+                    {{-- <li class="nav-item">
                         <a class="nav-link" href="#">Disabled</a>
                     </li>
                     <li class="nav-item dropdown">
@@ -42,7 +42,7 @@
                             <li><a class="dropdown-item" href="#">Another action</a></li>
                             <li><a class="dropdown-item" href="#">Something else here</a></li>
                         </ul>
-                    </li>
+                    </li> --}}
                 </ul>
 
                 @if (Route::has('login'))

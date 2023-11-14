@@ -23,7 +23,7 @@
 
     <div class="container">
         <table class="table table-hover">
-            <thead>
+            <thead class="table-dark">
                 <tr>
                     <th scope="col">ID</th>
                     <th scope="col">Project Name</th>
@@ -44,13 +44,20 @@
                                 @endforeach
                             </ol>
                         </td>
-                        <td>{{ $data->class }}</td>
+                        <td>{{ $data->gradelevel }}. {{ $data->class }}</td>
                         <td>
-                            <button class="btn btn-primary">View</button>
+                            <a class="btn btn-primary" href="{{ url('projectshow/' . $data->id) }}">View</a>
                             @if (Route::has('login'))
                                 @auth
-                                    <button class="btn btn-success">Edit</button>
-                                    <button class="btn btn-danger">Delete</button>
+                                    {{-- <form method="POST" action="{{ url('projectedit/' . $data->id) }}" class="btn p-0">
+                                        <button type="submit" class="btn btn-success">Edit</button>
+                                    </form> --}}
+                                    <a href="{{ url('projectedit/' . $data->id) }}" class="btn btn-success">Edit</a>
+                                    <form method="POST" action="{{ url('projectdelete/' . $data->id) }}" class="btn p-0">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                    </form>
                                 @endauth
                             @endif
                         </td>
