@@ -100,14 +100,14 @@ class ProjectController extends Controller
         //     $query->where('foodname', 'like', "%$search%")
         //         ->orWhereHas('diseases->name', 'like', "%$search%");
         // })->get();
-        $food = Project::where(function ($query) use ($search) {
+        $project = Project::where(function ($query) use ($search) {
             $query->where('foodname', 'like', "%$search%")
                 ->orWhere('foodkcal', 'like', "%$search%");
         })
             ->orWhereHas('diseases', function ($query) use ($search) {
                 $query->where('name', 'like', "%$search%");
             })->get();
-        return view('search', compact('food'));
+        return view('search', compact('project'));
     }
 
 

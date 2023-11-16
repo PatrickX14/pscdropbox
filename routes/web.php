@@ -24,6 +24,7 @@ Route::controller(PageController::class)->group(function () {
 Route::controller(ProjectController::class)->group(function () {
     Route::get('/project', 'index')->name('project.show');
     Route::get('/projectshow/{id}' , 'show');
+    Route::get('/search' , 'search');
 });
 
 // Route::get('/dashboard', function () {

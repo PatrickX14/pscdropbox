@@ -17,13 +17,13 @@
                 <p>{{ $project->description }}</p>
                 <div class="row mx-auto text-center">
                     <div class="col">
-                        <a class="btn btn-secondary pt-3 pb-3 ps-4 pe-4" href="">ใบลายเซ็น</a>
+                        <a class="btn btn-secondary pt-3 pb-3 ps-4 pe-4" href="{{ asset("storage/approval/$project->approval")}}" download>ใบลายเซ็น</a>
                     </div>
                     <div class="col">
-                        <a class="btn btn-secondary pt-3 pb-3 ps-4 pe-4" href="">รูปเล่มโครงงาน</a>
+                        <a class="btn btn-secondary pt-3 pb-3 ps-4 pe-4" href="{{ asset("storage/abstract/$project->abstract")}}" download>รูปเล่มโครงงาน</a>
                     </div>
                     <div class="col">
-                        <a class="btn btn-secondary pt-3 pb-3 ps-4 pe-4" href="">Source Code</a>
+                        <a class="btn btn-secondary pt-3 pb-3 ps-4 pe-4" href="{{ asset("storage/code/$project->code")}}" download>Source Code</a>
                     </div>
                 </div>
                 <div class="row mx-auto text-center mt-5">
