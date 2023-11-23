@@ -51,7 +51,8 @@
                             <div class="col" id="memberCol">
                                 <label for="">ผู้รับผิดชอบโครงงาน</label>
                                 <button type="button" class="btn btn-success" id="memberAdd">เพิ่มผู้รับผิดชอบโครงงาน</button>
-                                <input class="form-control border border-dark mt-3" type="text" name="projectmembers[]">
+                                <button type="button" class="btn btn-danger" id="memberRemove">ลบผู้รับผิดชอบโครงงาน</button>
+                                <input class="form-control border border-dark mt-3" type="text" name="projectmembers[]" id="projectMember">
                                 @error('projectmembers')
                                     <span class="text-danger fs-6">{{ $message }}</span>
                                 @enderror
@@ -61,9 +62,8 @@
                             <div class="col" id="advisorCol">
                                 <label for="">อาจารย์ที่ปรึกษาโครงงาน</label>
                                 <button type="button" class="btn btn-success" id="advisorAdd">เพิ่มอาจารย์ที่ปรึกษาโครงงาน</button>
-                                <div class="d-flex align-items-center">
-                                    <input class="form-control border border-dark mt-3 border-none" type="text" name="projectadvisors[]" style="height: 100">
-                                </div>
+                                <button type="button" class="btn btn-danger" id="advisorRemove">ลบอาจารย์ที่ปรึกษาโครงงาน</button>
+                                <input class="form-control border border-dark mt-3" type="text" name="projectadvisors[]" id="advisor">
                                 @error('projectadvisors')
                                     <span class="text-danger fs-6">{{ $message }}</span>
                                 @enderror
